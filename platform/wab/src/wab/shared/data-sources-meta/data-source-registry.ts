@@ -37,6 +37,10 @@ import {
   ZAPIER_META,
   ZapierDataSource,
 } from "@/wab/shared/data-sources-meta/zapier-meta";
+import {
+  ZUORA_META,
+  ZuoraDataSource,
+} from "@/wab/shared/data-sources-meta/zuora-meta";
 import { DEVFLAGS } from "@/wab/shared/devflags";
 import { DATA_SOURCE_LOWER } from "@/wab/shared/Labels";
 import { Config } from "@react-awesome-query-builder/antd";
@@ -49,6 +53,7 @@ export type GenericDataSource =
   | PostgresDataSource
   | ZapierDataSource
   | TutorialDbDataSource
+  | ZuoraDataSource
   | FakeDataSource;
 
 const DATA_SOURCE_METAS = {
@@ -59,6 +64,7 @@ const DATA_SOURCE_METAS = {
   postgres: POSTGRES_META,
   zapier: ZAPIER_META,
   tutorialdb: TUTORIALDB_META,
+  zuora: ZUORA_META,
   fake: FAKE_META,
 } as const;
 

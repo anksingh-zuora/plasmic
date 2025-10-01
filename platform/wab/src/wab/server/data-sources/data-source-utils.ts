@@ -7,6 +7,7 @@ import { makePostgresFetcher } from "@/wab/server/data-sources/postgres-fetcher"
 import { makeSupabaseFetcher } from "@/wab/server/data-sources/supabase-fetcher";
 import { makeTutorialDbFetcher } from "@/wab/server/data-sources/tutorialdb-fetcher";
 import { makeZapierFetcher } from "@/wab/server/data-sources/zapier-fetcher";
+import { makeZuoraFetcher } from "@/wab/server/data-sources/zuora-fetcher";
 import { getLastBundleVersion } from "@/wab/server/db/BundleMigrator";
 import { DbMgr } from "@/wab/server/db/DbMgr";
 import { logger } from "@/wab/server/observability";
@@ -138,6 +139,8 @@ export async function makeFetcher(
       return makeZapierFetcher(source);
     case "tutorialdb":
       return await makeTutorialDbFetcher(dbCon, source);
+    case "zuora":
+      return makeZuoraFetcher(source);
     case "fake":
       return await makeFakeFetcher(source);
   }
