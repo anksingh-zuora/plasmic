@@ -1868,7 +1868,7 @@ export class DbMgr implements MigrationDbMgr {
       org: orgId ? { id: orgId } : null,
       needsIntroSplash: true,
       needsSurvey: true,
-      waitingEmailVerification: password ? true : false,
+      waitingEmailVerification: false,
       needsTeamCreationPrompt,
       isWhiteLabel,
       whiteLabelId,

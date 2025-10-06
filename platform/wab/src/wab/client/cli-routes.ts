@@ -185,7 +185,7 @@ export function isPlasmicPath(pathname: string) {
 export function isTopFrame(): boolean {
   return (
     window.origin === getPublicUrl() ||
-    DEVFLAGS.topFrameUrls.includes(window.origin)
+    DEVFLAGS.topFrameUrls.includes(window.origin && window === window.top)
   );
 }
 
