@@ -24,6 +24,9 @@ RUN echo "Building canvas-packages..." && yarn build && echo "Canvas-packages bu
 # Accept API_BASE_PATH as build argument (defaults to empty string)
 ARG API_BASE_PATH=""
 
+# Convert ARG to ENV so it's available to the build process
+ENV API_BASE_PATH=${API_BASE_PATH}
+
 # Create .env file with dummy values
 WORKDIR /app/platform/wab
 RUN echo "API_BASE_PATH=${API_BASE_PATH}" > .env && \
@@ -40,8 +43,8 @@ RUN echo "API_BASE_PATH=${API_BASE_PATH}" > .env && \
 # Build CSS
 RUN echo "Building CSS..." && yarn build-css && echo "CSS build completed!"
 
-# Build the frontend
-RUN echo "Building frontend..." && yarn build && echo "Frontend build completed!"
+# Build the frontend (API_BASE_PATH is now available as process.env.API_BASE_PATH)
+RUN echo "Building frontend with API_BASE_PATH=${API_BASE_PATH}..." && yarn build && echo "Frontend build completed!"
 
 # Production stage
 FROM nginx:alpine
