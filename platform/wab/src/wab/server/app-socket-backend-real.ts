@@ -45,6 +45,16 @@ async function run() {
 
   addLoggingMiddleware(app);
 
+  // Surgical middleware: Strip API_BASE_PATH prefix from all incoming requests
+  if (config.apiBasePath) {
+    app.use((req, res, next) => {
+      if (req.url.startsWith(config.apiBasePath!)) {
+        req.url = req.url.substring(config.apiBasePath!.length);
+      }
+      next();
+    });
+  }
+
   app.use(bodyParserJson({ limit: "400mb" }));
 
   // eslint-disable-next-line @typescript-eslint/no-misused-promises

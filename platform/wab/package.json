@@ -6,7 +6,7 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "homepage": "https://studio.plasmic.app",
+  "homepage": "https://staging2.zuora.com/extension",
   "scripts": {
     "postinstall": "patch-package",
     "dev": "bash tools/dev.bash",

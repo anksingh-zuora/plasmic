@@ -2064,6 +2064,19 @@ export async function createApp(
 
   addOptionsRoutes(app);
 
+  // Surgical middleware: Strip API_BASE_PATH prefix from all incoming requests
+  // This allows the backend to work behind an ALB that routes requests with a prefix
+  if (config.apiBasePath) {
+    logger().info(`API_BASE_PATH configured: ${config.apiBasePath}`);
+    app.use((req, res, next) => {
+      if (req.url.startsWith(config.apiBasePath!)) {
+        req.url = req.url.substring(config.apiBasePath!.length);
+        logger().debug(`Stripped prefix, new URL: ${req.url}`);
+      }
+      next();
+    });
+  }
+
   const expressSessionMiddleware = makeExpressSessionMiddleware(config);
 
   addCleanRoutes?.(app);

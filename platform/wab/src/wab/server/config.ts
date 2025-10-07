@@ -13,6 +13,7 @@ export interface Config {
   mailUserOps: string;
   mailBcc?: string;
   port?: number;
+  apiBasePath?: string;
   terminationGracePeriodMs: number;
   genericWorkerPoolSize: number;
   loaderWorkerPoolSize: number;
@@ -68,6 +69,7 @@ function parseConfigFromEnv(): Config {
     mailFrom: mailConfig?.mailFrom,
     mailUserOps: mailConfig?.mailUserOps,
     mailBcc: mailConfig?.mailBcc,
+    apiBasePath: process.env["API_BASE_PATH"] || undefined,
     adminEmails: process.env["ADMIN_EMAILS"]
       ? (JSON.parse(process.env["ADMIN_EMAILS"]) as string[]).map((email) =>
           email.toLowerCase()

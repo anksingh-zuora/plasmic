@@ -5,6 +5,7 @@ import {
   serializeClipboardItems,
 } from "@/wab/client/clipboard/ReadableClipboard";
 import { LocalClipboardAction } from "@/wab/client/clipboard/local";
+import { ENV } from "@/wab/client/env";
 import { analytics } from "@/wab/client/observability";
 import { PushPullQueue } from "@/wab/commons/asyncutil";
 import { PromisifyMethods } from "@/wab/commons/promisify-methods";
@@ -43,7 +44,7 @@ import $ from "jquery";
 import L, { pick } from "lodash";
 import { Socket, connect } from "socket.io-client";
 
-const fullApiPath = (url: /*TWZ*/ string) => `/api/v1/${L.trimStart(url, "/")}`;
+const fullApiPath = (url: /*TWZ*/ string) => `${ENV.API_BASE_PATH}/api/v1/${L.trimStart(url, "/")}`;
 
 export class XHRStatus0Error extends Error {
   constructor(message?: string) {
@@ -202,7 +203,7 @@ export class Api extends SharedApi {
     }
     if (!this.socket) {
       this.socket = connect({
-        path: "/api/v1/socket",
+        path: `${ENV.API_BASE_PATH}/api/v1/socket`,
         transports: ["websocket"],
       });
       for (const eventName of eventNames) {

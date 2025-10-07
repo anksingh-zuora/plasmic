@@ -224,6 +224,7 @@ export default defineConfig({
             NODE_ENV: REQUIRED_VAR,
             COMMITHASH: commitHash,
             PUBLICPATH: publicUrl,
+            API_BASE_PATH: OPTIONAL_VAR,
             AMPLITUDE_API_KEY: OPTIONAL_VAR,
             INTERCOM_APP_ID: OPTIONAL_VAR,
             POSTHOG_API_KEY: OPTIONAL_VAR,
