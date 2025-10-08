@@ -27,6 +27,9 @@ ARG API_BASE_PATH=""
 # Convert ARG to ENV so it's available to the build process
 ENV API_BASE_PATH=${API_BASE_PATH}
 
+# Debug: Show what API_BASE_PATH value we have
+RUN echo "=== BUILD DEBUG: API_BASE_PATH is set to: '${API_BASE_PATH}' ==="
+
 # Create .env file with dummy values
 WORKDIR /app/platform/wab
 RUN echo "API_BASE_PATH=${API_BASE_PATH}" > .env && \
@@ -39,6 +42,9 @@ RUN echo "API_BASE_PATH=${API_BASE_PATH}" > .env && \
     echo "SENTRY_PROJECT_ID=test_key" >> .env && \
     echo "SENTRY_DSN=test_key" >> .env && \
     echo "STRIPE_PUBLISHABLE_KEY=test_key" >> .env
+
+# Debug: Show contents of .env file
+RUN echo "=== BUILD DEBUG: .env file contents ===" && cat .env && echo "=== END .env ==="
 
 # Build CSS
 RUN echo "Building CSS..." && yarn build-css && echo "CSS build completed!"

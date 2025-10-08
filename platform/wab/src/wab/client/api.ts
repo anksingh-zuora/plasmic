@@ -44,7 +44,11 @@ import $ from "jquery";
 import L, { pick } from "lodash";
 import { Socket, connect } from "socket.io-client";
 
-const fullApiPath = (url: /*TWZ*/ string) => `${ENV.API_BASE_PATH}/api/v1/${L.trimStart(url, "/")}`;
+const fullApiPath = (url: /*TWZ*/ string) => {
+  const path = `${ENV.API_BASE_PATH}/api/v1/${L.trimStart(url, "/")}`;
+  console.log("[PLASMIC API] fullApiPath called - ENV.API_BASE_PATH:", ENV.API_BASE_PATH, "url:", url, "result:", path);
+  return path;
+};
 
 export class XHRStatus0Error extends Error {
   constructor(message?: string) {
@@ -202,8 +206,10 @@ export class Api extends SharedApi {
       this.socket = undefined;
     }
     if (!this.socket) {
+      const socketPath = `${ENV.API_BASE_PATH}/api/v1/socket`;
+      console.log("[PLASMIC API] Connecting WebSocket - ENV.API_BASE_PATH:", ENV.API_BASE_PATH, "path:", socketPath);
       this.socket = connect({
-        path: `${ENV.API_BASE_PATH}/api/v1/socket`,
+        path: socketPath,
         transports: ["websocket"],
       });
       for (const eventName of eventNames) {
